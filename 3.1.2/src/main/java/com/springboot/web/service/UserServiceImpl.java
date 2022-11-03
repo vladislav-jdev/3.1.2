@@ -1,6 +1,6 @@
 package com.springboot.web.service;
 
-import com.springboot.web.dao.UserDao;
+import com.springboot.web.repository.UserRepository;
 import com.springboot.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,35 +11,35 @@ import java.util.List;
 @Service()
 public class UserServiceImpl implements UserService{
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     @Transactional
     public User saveOrUpdate(User user) {
-        return userDao.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     @Transactional
     public List<User> getAllUsers() {
-        return userDao.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     @Transactional
     public User getUser(Long id) {
-        return userDao.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
     public void deleteUser(Long id) {
-        userDao.deleteById(id);
+        userRepository.deleteById(id);
     }
 
 }
